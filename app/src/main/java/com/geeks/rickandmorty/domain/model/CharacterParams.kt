@@ -1,6 +1,7 @@
 package com.geeks.rickandmorty.domain.model
 
 data class CharacterParams(
+    val page: Int,
     val query: String?,
     val status: String?,
     val gender: String?,

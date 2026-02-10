@@ -2,6 +2,7 @@ package com.geeks.rickandmorty.data.mapper
 
 import com.geeks.rickandmorty.data.model.CharacterDto
 import com.geeks.rickandmorty.data.model.CharacterLocationDto
+import com.geeks.rickandmorty.data.model.CharacterRequest
 import com.geeks.rickandmorty.data.model.CharacterResponseDto
 import com.geeks.rickandmorty.data.model.InfoDto
 import com.geeks.rickandmorty.data.model.OriginDto
@@ -9,6 +10,8 @@ import com.geeks.rickandmorty.domain.model.CharacterLocation
 import com.geeks.rickandmorty.domain.model.CharacterResponse
 import com.geeks.rickandmorty.domain.model.Info
 import com.geeks.rickandmorty.domain.model.Origin
+import com.geeks.rickandmorty.domain.model.Character
+import com.geeks.rickandmorty.domain.model.CharacterParams
 
 fun CharacterResponseDto.toDomain(): CharacterResponse {
     return CharacterResponse(
@@ -60,3 +63,5 @@ fun InfoDto.toDomain(): Info {
         prev = this.prev ?: ""
     )
 }
+
+
