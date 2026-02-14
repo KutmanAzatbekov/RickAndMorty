@@ -65,4 +65,6 @@ dependencies {
     implementation(libs.bundles.kotlin.coroutines)
 
     implementation(libs.bundles.paging3)
+
+    implementation(libs.coil.compose)
 }

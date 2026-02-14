@@ -26,7 +26,7 @@ class RealCharacterRepository(
     private val client: HttpClient
 ) : CharacterRepository {
 
-    override fun getCharactersPageSource(params: CharacterParams): Flow<PagingData<Character>> =
+    override fun getCharactersPageSours(params: CharacterParams): Flow<PagingData<Character>> =
         Pager(
             config = PagingConfig(pageSize = 20, prefetchDistance = 20, enablePlaceholders = false),
             pagingSourceFactory = {
@@ -55,8 +55,7 @@ class RealCharacterRepository(
         client.safeGet<CharacterDto>(url = "character/${characterId}", dispatcher = ioDispatcher())
             .map { it.toDomain() }
 
-
-    override suspend fun getCharactersByIds(characterIds: List<Int>): DataResult<List<Character>, AppError> =
+    override suspend fun getCharacterByIds(characterIds: List<Int>): DataResult<List<Character>, AppError> =
         client.safeGet<List<CharacterDto>>(url = "character/${
             characterIds.joinToString(separator = ",", prefix = "[", postfix = "]")
         }",
