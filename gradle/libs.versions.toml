@@ -23,6 +23,7 @@ compose-runtime = "1.10.2"
 
 pagingRuntimeKtx = "3.4.0"
 firebaseCrashlyticsBuildtools = "3.0.6"
+jetbrainsKotlinJvm = "2.0.21"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -75,7 +76,7 @@ firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "fireb
 
 [bundles]
 ktor = ["ktor-client-core", "ktor-serialization-json", "ktor-client-okhttp", "ktor-client-content-negotiation", "ktor-client-logging", "kotlinx-serialization" ]
-koin = ["koin-core", "koin-compose", "koin-androidx-compose"]
+koin-android = [ "koin-compose","koin-androidx-compose"]
 kotlin-coroutines = ["kotlinx-coroutines-core", "kotlinx-datetime", "kotlinx-serialization"]
 paging3 = ["androidx-paging-compose", "androidx-paging-runtime-ktx", "androidx-paging-common"]
 
@@ -87,4 +88,5 @@ androidLibrary = { id = "com.android.library", version.ref = "agp"}
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 

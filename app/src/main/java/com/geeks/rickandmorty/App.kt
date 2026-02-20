@@ -1,10 +1,11 @@
 package com.geeks.rickandmorty
 
 import android.app.Application
-import com.geeks.rickandmorty.data.di.dataModule
-import com.geeks.rickandmorty.domain.di.domainModule
-import com.geeks.rickandmorty.network.di.networkModule
-import com.geeks.rickandmorty.ui.di.uiModule
+import com.geeks.character.data.di.dataModule
+import com.geeks.character.domain.di.domainModule
+import com.geeks.character.ui.di.uiModule
+import com.geeks.rickandmorty.core.network.di.networkModule
+
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.geeks.rickandmorty.ui.screens.characters.CharacterListScreen
+import com.geeks.character.ui.characters.CharacterListScreen
 import com.geeks.rickandmorty.ui.theme.RickAndMortyTheme
 
 class MainActivity : ComponentActivity() {
