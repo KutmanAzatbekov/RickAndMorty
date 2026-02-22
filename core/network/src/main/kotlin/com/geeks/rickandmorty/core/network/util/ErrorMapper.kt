@@ -16,43 +16,37 @@ import kotlinx.serialization.SerializationException
 
 @Serializable
 data class ApiErrorResponseDto(
-    val message: String? = null,
-    val detail: String? = null
-){
-    val userMessage: String
-        get() = message ?: detail ?: "Unknown json key"
-}
+    @SerialName("error") val error: String? = null,
+)
 
 suspend fun mapExceptionToAppError(e: Exception): AppError {
-    return when(e){
+    return when (e) {
         is ClientRequestException -> {
             val status = e.response.status.value
             var message: String? = null
 
             try {
                 val dto = e.response.body<ApiErrorResponseDto>()
-                message = dto.userMessage
-            } catch (_: Exception){
+                message = dto.error
+            } catch (_: Exception) {
                 message = try {
                     e.response.bodyAsText()
-                } catch (_: Exception){
+                } catch (_: Exception) {
                     null
                 }
             }
 
-            when(status){
-                400 -> AppError.Api.BadRequest(message ?: "")
-                401 -> AppError.Api.Unauthorized(message ?: "")
-                403 -> AppError.Api.Forbidden(message ?: "")
-                404 -> AppError.Api.NotFound(message ?: "")
-                409 -> AppError.Api.Conflict(message ?: "")
-                422 -> AppError.Api.BadRequest(message ?: "")
-                429 -> AppError.Api.TooManyRequests(message ?: "")
-                else ->  AppError.Api.BadRequest("Error $status: $message")
+            when (status) {
+                400 -> AppError.Api.BadRequest(message ?: "Проверьте правильность данных")
+                401 -> AppError.Api.Unauthorized(message ?: "Пользователь не авторизован")
+                403 -> AppError.Api.Forbidden(message ?: "Для этого пользователя доступ запрещен")
+                404 -> AppError.Api.NotFound(message ?: "Ничего не найдено")
+                409 -> AppError.Api.Conflict(message ?: "Конфликт данных на сервере")
+                422 -> AppError.Api.BadRequest(message ?: "Проверьте правильность полей")
+                429 -> AppError.Api.TooManyRequests(message ?: "Слишком много запросов. Пожалуйста, подождите.")
+                else -> AppError.Api.BadRequest("Error $status: $message")
             }
-
         }
-
         is ServerResponseException -> {
             val status = e.response.status.value
             if (status == 503) AppError.Network.ServerUnavailable

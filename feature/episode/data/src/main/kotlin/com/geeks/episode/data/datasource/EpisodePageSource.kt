@@ -1,33 +1,33 @@
-package com.geeks.character.data.datasource
+package com.geeks.episode.data.datasource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.geeks.character.domain.model.CharacterParams
-import com.geeks.character.domain.model.CharacterResponse
+import com.geeks.episode.domain.model.Episode
+import com.geeks.episode.domain.model.EpisodeResponse
+
 import com.geeks.rickandmorty.core.network.model.AppError
 import com.geeks.rickandmorty.core.network.model.DataResult
-import com.geeks.character.domain.model.Character
 
 
 const val START_INDEX = 1
 
 class CharacterPageSource(
-    private val requestParams: CharacterParams,
-    private val request: suspend (CharacterParams) -> DataResult<CharacterResponse, AppError>,
-) : PagingSource<Int, Character>() {
+    private val page: Int,
+    private val request: suspend (Int) -> DataResult<EpisodeResponse, AppError>,
+) : PagingSource<Int, Episode>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
-        val page = params.key ?: START_INDEX
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Episode> {
+        val currentPage = params.key ?: START_INDEX
 
-        return when (val result = request(requestParams.copy(page = page))) {
+        return when (val result = request(page)) {
             is DataResult.Success -> {
-                val characters = result.data.results
+                val episodes = result.data.results
                 val pages = result.data.info.pages
 
                 LoadResult.Page(
-                    data = characters,
+                    data = episodes,
                     prevKey = if (page == START_INDEX) null else page - 1,
-                    nextKey = if (characters.isEmpty() || page >= pages) null else page + 1
+                    nextKey = if (episodes.isEmpty() || currentPage >= pages) null else page + 1
                 )
             }
             is DataResult.Error -> {
@@ -41,7 +41,7 @@ class CharacterPageSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Episode>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)

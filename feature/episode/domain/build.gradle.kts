@@ -1,16 +1,16 @@
 
 plugins {
     alias(libs.plugins.jetbrains.kotlin.jvm)
-    alias(libs.plugins.kotlinSerialization)
 }
 kotlin {
     jvmToolchain(21)
 
 
     dependencies {
-        api(libs.bundles.ktor)
-        api(libs.androidx.paging.common)
+        implementation(libs.firebase.crashlytics.buildtools)
         implementation(libs.koin.core)
         implementation(libs.bundles.kotlin.coroutines)
+        implementation(libs.androidx.paging.common)
+        implementation(project(":core:network"))
     }
 }

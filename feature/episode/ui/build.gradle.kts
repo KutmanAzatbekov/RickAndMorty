@@ -1,28 +1,17 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.library")
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlinSerialization)
 }
 
 android {
-    namespace = "com.geeks.rickandmorty"
+    namespace = "com.geeks.rickandmorty.feature.episode.ui"
     compileSdk {
         version = release(36)
     }
-    kotlin{
-    jvmToolchain(21)
-    }
 
-    defaultConfig {
-        applicationId = "com.geeks.rickandmorty"
-        minSdk = 30
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
 
     buildTypes {
         release {
@@ -37,7 +26,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-
+    kotlinOptions {
+        jvmTarget = "21"
+    }
     buildFeatures {
         compose = true
     }
@@ -53,27 +44,14 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.firebase.crashlytics.buildtools)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation(libs.koin.core)
     implementation(libs.bundles.koin.android)
-    implementation(libs.koin.compose)
     implementation(libs.bundles.kotlin.coroutines)
 
-    implementation(project(":core:network"))
-    implementation(project(":feature:character:data"))
-    implementation(project(":feature:character:domain"))
-    implementation(project(":feature:character:ui"))
+    implementation(libs.bundles.paging3)
 
-    implementation(project(":feature:episode:data"))
     implementation(project(":feature:episode:domain"))
-    implementation(project(":feature:episode:ui"))
 
     implementation(libs.coil.compose)
 }
