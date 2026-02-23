@@ -10,6 +10,6 @@ class GetCharactersByIdsUseCase(
     private val repository: CharacterRepository
 ) {
     suspend operator fun invoke(charactersIds: List<Int>): DataResult<List<Character>, AppError> {
-        return repository.getCharacterByIds(charactersIds)
+        return repository.getCharactersByIds(charactersIds)
     }
 }

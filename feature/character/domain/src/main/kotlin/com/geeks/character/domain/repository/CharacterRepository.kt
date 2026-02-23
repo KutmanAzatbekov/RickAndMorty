@@ -17,7 +17,7 @@ interface CharacterRepository {
     suspend fun getCharacters(params: CharacterParams): DataResult<CharacterResponse, AppError>
 
     suspend fun getCharacterById(characterId: Int): DataResult<Character, AppError>
-    suspend fun getCharacterByIds(characterIds: List<Int>): DataResult<List<Character>, AppError>
+    suspend fun getCharactersByIds(characterIds: List<Int>): DataResult<List<Character>, AppError>
 
     suspend fun getCharactersTotalInfo(): DataResult<Info, AppError>
 

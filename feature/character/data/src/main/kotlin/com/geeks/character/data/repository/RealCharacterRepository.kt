@@ -22,6 +22,7 @@ import com.geeks.character.domain.model.CharacterParams
 import com.geeks.character.domain.model.CharacterResponse
 import com.geeks.character.domain.model.Info
 import com.geeks.character.domain.repository.CharacterRepository
+import com.geeks.rickandmorty.core.network.util.BasePageSource
 
 class RealCharacterRepository(
     private val client: HttpClient
@@ -31,8 +32,8 @@ class RealCharacterRepository(
         Pager(
             config = PagingConfig(pageSize = 20, prefetchDistance = 20, enablePlaceholders = false),
             pagingSourceFactory = {
-                CharacterPageSource(requestParams = params) { params ->
-                    getCharacters(params)
+                object : BasePageSource<Character, CharacterResponse>() {
+                    override suspend fun fetchData(page: Int) = getCharacters(params)
                 }
             }
         ).flow.flowOn(Dispatchers.IO)
@@ -56,7 +57,7 @@ class RealCharacterRepository(
         client.safeGet<CharacterDto>(url = "character/${characterId}", dispatcher = ioDispatcher())
             .map { it.toDomain() }
 
-    override suspend fun getCharacterByIds(characterIds: List<Int>): DataResult<List<Character>, AppError> =
+    override suspend fun getCharactersByIds(characterIds: List<Int>): DataResult<List<Character>, AppError> =
         client.safeGet<List<CharacterDto>>(url = "character/${
             characterIds.joinToString(separator = ",", prefix = "[", postfix = "]")
         }",

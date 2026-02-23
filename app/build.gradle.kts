@@ -66,6 +66,8 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.bundles.kotlin.coroutines)
 
+    implementation(libs.androidx.navigation.compose)
+
     implementation(project(":core:network"))
     implementation(project(":feature:character:data"))
     implementation(project(":feature:character:domain"))

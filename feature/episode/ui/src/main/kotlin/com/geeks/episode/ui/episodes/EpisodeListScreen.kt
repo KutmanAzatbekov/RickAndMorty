@@ -17,17 +17,16 @@ fun EpisodeListScreen(modifier: Modifier = Modifier) {
     val listState = rememberLazyListState()
 
 
-    Scaffold(modifier = modifier) { innerPadding ->
-        LazyColumn(modifier = Modifier.padding(innerPadding), state = listState) {
-            items(count = episodeList.itemCount) { index ->
-                val item = episodeList[index]
+    LazyColumn(state = listState) {
+        items(count = episodeList.itemCount) { index ->
+            val item = episodeList[index]
 
-                item?.let { episode ->
-                    EpisodeListItem(
-                        episode = episode
-                    )
-                }
+            item?.let { episode ->
+                EpisodeListItem(
+                    episode = episode
+                )
             }
         }
+
     }
 }

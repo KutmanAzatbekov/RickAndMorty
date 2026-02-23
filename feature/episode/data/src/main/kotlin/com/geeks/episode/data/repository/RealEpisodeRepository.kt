@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import com.geeks.episode.domain.model.Episode
 import com.geeks.episode.domain.model.EpisodeResponse
-import com.geeks.rickandmorty.core.network.util.BasePageSours
+import com.geeks.rickandmorty.core.network.util.BasePageSource
 import com.geeks.episode.domain.repository.EpisodeRepository
 
 

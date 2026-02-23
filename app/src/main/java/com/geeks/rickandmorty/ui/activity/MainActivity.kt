@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.geeks.character.ui.characters.CharacterListScreen
+import com.geeks.rickandmorty.ui.navigation.NavStack
 import com.geeks.rickandmorty.ui.theme.RickAndMortyTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RickAndMortyTheme {
-                CharacterListScreen(modifier = Modifier.fillMaxSize())
+                NavStack()
             }
         }
     }
